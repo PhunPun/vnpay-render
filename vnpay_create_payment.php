@@ -49,4 +49,5 @@ $vnpUrl = $vnp_Url . '?' . implode('&', $query);
 
 // Trả kết quả JSON về Flutter
 header('Content-Type: application/json');
+file_put_contents("debug.txt", "HASHDATA:\n$hashdata\n\nHASH:\n$vnp_SecureHash\n\nURL:\n$vnpUrl\n\n", FILE_APPEND);
 echo json_encode(['url' => $vnpUrl]);
