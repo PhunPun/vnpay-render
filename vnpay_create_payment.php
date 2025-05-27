@@ -22,7 +22,8 @@ $inputData = array(
     "vnp_Locale" => "vn",
     "vnp_ReturnUrl" => $vnp_Returnurl,
     "vnp_IpAddr" => $_SERVER['REMOTE_ADDR'],
-    "vnp_CreateDate" => date('YmdHis')
+    "vnp_CreateDate" => date('YmdHis'),
+    "vnp_SecureHashType" => "SHA512"
 );
 
 ksort($inputData);
