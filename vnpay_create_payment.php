@@ -4,7 +4,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 $vnp_TmnCode = "MQ230N7N";
 $vnp_HashSecret = "BU33YQJVJDWVD8HT5HQUT6WZ8S886K66";
 $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-$vnp_Returnurl = "https://vnpay-render.onrender.com/vnpay_return.php"; // ✅ sửa đúng domain
+$vnp_Returnurl = "https://vnpay-render.onrender.com/vnpay_return.php";
 
 $order_id = $_POST['order_id'] ?? time();
 $amount = $_POST['amount'] ?? 100000;
@@ -27,21 +27,19 @@ $inputData = array(
 );
 
 ksort($inputData);
-
-// ✅ build query string và hashdata tách biệt đúng chuẩn
 $hashdata = '';
 $query = [];
+
 foreach ($inputData as $key => $value) {
-    $hashdata .= $key . "=" . $value . '&';
+    $hashdata .= $key . "=" . $value . "&";
     $query[] = urlencode($key) . "=" . urlencode($value);
 }
-$hashdata = rtrim($hashdata, '&');
 
+$hashdata = rtrim($hashdata, '&');
 $vnp_SecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
 $query[] = 'vnp_SecureHash=' . $vnp_SecureHash;
 
 $vnpUrl = $vnp_Url . '?' . implode('&', $query);
 
-// ✅ trả JSON cho Flutter
 header('Content-Type: application/json');
 echo json_encode(['url' => $vnpUrl]);
