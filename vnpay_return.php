@@ -1,11 +1,16 @@
 <?php
-$responseCode = $_GET['vnp_ResponseCode'] ?? '';
-$txnRef = $_GET['vnp_TxnRef'] ?? '';
-$amount = $_GET['vnp_Amount'] ?? '';
+error_reporting(E_ALL);
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
+// ✅ Lấy tham số từ URL
+$responseCode = $_GET['vnp_ResponseCode'] ?? null;
+$txnRef = $_GET['vnp_TxnRef'] ?? null;
+$amount = $_GET['vnp_Amount'] ?? null;
 $errorMessage = $_GET['vnp_Message'] ?? 'Không rõ lỗi';
-$secureHash = $_GET['vnp_SecureHash'] ?? '';
+
 $rawQuery = $_SERVER['REQUEST_URI'];
 
+// ✅ Hiển thị kết quả
 echo "<h2>Kết quả thanh toán:</h2>";
 
 if ($responseCode === '00') {
@@ -18,7 +23,7 @@ if ($responseCode === '00') {
     echo "<p>Thông báo từ VNPay: $errorMessage</p>";
 }
 
-// ✅ In ra toàn bộ URL để debug
+// ✅ Debug URL
 echo "<hr>";
 echo "<strong>Raw Query:</strong><br><code>$rawQuery</code>";
 ?>
