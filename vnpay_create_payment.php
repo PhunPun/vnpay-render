@@ -44,11 +44,14 @@ foreach ($inputData as $key => $value) {
 }
 
 $hashdata = rtrim($hashdata, '&');
+echo "🔍 Chuỗi hash để ký: <br>$hashdata";
+exit;
 $vnp_SecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
 $query[] = 'vnp_SecureHash=' . $vnp_SecureHash;
 
 $vnpUrl = $vnp_Url . '?' . implode('&', $query);
-
+echo "🔗 URL tạo ra: $vnpUrl";
+exit;
 // Trả về JSON cho Flutter
 header('Content-Type: application/json');
 echo json_encode(['url' => $vnpUrl]);
