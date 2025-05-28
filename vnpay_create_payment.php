@@ -36,7 +36,6 @@ foreach ($inputData as $key => $value) {
     $hashdata .= $key . '=' . $value . '&';
 }
 $hashdata = rtrim($hashdata, '&');
-file_put_contents('debug_create.txt', $hashdata);
 
 // Tạo chữ ký
 $vnp_SecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
@@ -50,4 +49,8 @@ $vnpUrl = $vnp_Url . '?' . http_build_query($inputData, '', '&', PHP_QUERY_RFC39
 
 // Trả về kết quả JSON
 header('Content-Type: application/json');
-echo json_encode(['url' => $vnpUrl]);
+echo json_encode([
+    'url' => $vnpUrl,
+    'hashData' => $hashdata
+]);
+
