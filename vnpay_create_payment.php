@@ -26,7 +26,7 @@ $inputData = array(
     "vnp_OrderType" => "billpayment",
     "vnp_Locale" => "vn",
     "vnp_ReturnUrl" => $vnp_Returnurl,
-    "vnp_IpAddr" => $_SERVER['REMOTE_ADDR'],
+    "vnp_IpAddr" => $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'],
     "vnp_CreateDate" => date('YmdHis'),
     "vnp_ExpireDate" => $expire
 );
