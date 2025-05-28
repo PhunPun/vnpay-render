@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 $vnp_TmnCode = "MQ230N7N";
 $vnp_HashSecret = "BU33YQJVJDWVD8HT5HQUT6WZ8S886K66";
 $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-$vnp_Returnurl = "https://example.com/return";
+$vnp_Returnurl = "https://vnpay-render.onrender.com/vnpay_return.php";
 
 // Lấy dữ liệu từ client gửi lên
 $order_id = $_POST['order_id'] ?? time();
