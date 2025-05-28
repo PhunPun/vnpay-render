@@ -30,19 +30,23 @@ $inputData = array(
 
 ksort($inputData);
 
-// Sửa đoạn hashdata này
+// Tạo chuỗi hash
 $hashdata = '';
 foreach ($inputData as $key => $value) {
     $hashdata .= $key . '=' . $value . '&';
 }
 $hashdata = rtrim($hashdata, '&');
 
+// Tạo chữ ký
 $vnp_SecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
 
+// Bắt buộc thêm loại mã hóa
+$inputData['vnp_SecureHashType'] = 'SHA512';
 $inputData['vnp_SecureHash'] = $vnp_SecureHash;
 
-// OK dùng PHP_QUERY_RFC3986 cho URL thực tế
+// Tạo URL thanh toán
 $vnpUrl = $vnp_Url . '?' . http_build_query($inputData, '', '&', PHP_QUERY_RFC3986);
 
+// Trả về kết quả JSON
 header('Content-Type: application/json');
 echo json_encode(['url' => $vnpUrl]);
