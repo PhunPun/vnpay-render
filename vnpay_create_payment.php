@@ -22,17 +22,26 @@ $inputData = array(
     "vnp_OrderInfo" => "Thanh toan don hang $order_id",
     "vnp_OrderType" => "billpayment",
     "vnp_Locale" => "vn",
-    "vnp_ReturnUrl" => $vnp_Returnurl, // chữ U viết hoa
+    "vnp_ReturnUrl" => $vnp_Returnurl,
     "vnp_IpAddr" => $vnp_IpAddr,
     "vnp_CreateDate" => date('YmdHis'),
     "vnp_ExpireDate" => date('YmdHis', strtotime('+15 minutes')),
 );
 
 ksort($inputData);
-$hashdata = http_build_query($inputData, '', '&', PHP_QUERY_RFC3986);
+
+// Sửa đoạn hashdata này
+$hashdata = '';
+foreach ($inputData as $key => $value) {
+    $hashdata .= $key . '=' . $value . '&';
+}
+$hashdata = rtrim($hashdata, '&');
+
 $vnp_SecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
 
 $inputData['vnp_SecureHash'] = $vnp_SecureHash;
+
+// OK dùng PHP_QUERY_RFC3986 cho URL thực tế
 $vnpUrl = $vnp_Url . '?' . http_build_query($inputData, '', '&', PHP_QUERY_RFC3986);
 
 header('Content-Type: application/json');
