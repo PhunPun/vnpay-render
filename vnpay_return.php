@@ -18,6 +18,7 @@ foreach ($vnpData as $key => $value) {
     $hashData .= $key . '=' . $value . '&';
 }
 $hashData = rtrim($hashData, '&');
+file_put_contents('debug_return.txt', $hashData);
 $computedHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
 
 // 🧾 Lấy các thông tin cần hiển thị

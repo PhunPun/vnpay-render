@@ -36,6 +36,7 @@ foreach ($inputData as $key => $value) {
     $hashdata .= $key . '=' . $value . '&';
 }
 $hashdata = rtrim($hashdata, '&');
+file_put_contents('debug_create.txt', $hashdata);
 
 // Tạo chữ ký
 $vnp_SecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
